@@ -10,7 +10,10 @@ The app reads two PDF files:
 Once both documents are uploaded, the AI interviewer starts automatically, asks a fixed number of questions, listens to the candidate's spoken answers, and gives final interview feedback at the end.
 
 ## Interview Flow
-<img width="709" height="369" alt="interview-flow" src="https://github.com/user-attachments/assets/913b2748-bb99-4909-b775-88f95748572b" />
+<div style="text-align: center;">
+  <img width="600" height="250" alt="interview-flow"
+       src="https://github.com/user-attachments/assets/913b2748-bb99-4909-b775-88f95748572b" />
+</div>
 
 ## How to run
 
