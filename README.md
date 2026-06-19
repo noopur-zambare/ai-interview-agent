@@ -67,7 +67,7 @@ Upload both files:
 
 Once both files are uploaded, the interview starts automatically.
 
-#### Step 2: AI Asks Questions
+#### Step 2: Chatbot Asks Questions
 
 The AI interviewer asks one question at a time.
 
@@ -79,13 +79,13 @@ The candidate records their answer using the microphone.
 
 The answer is converted into text using Whisper.
 
-#### Step 4: AI Continues Interview
+#### Step 4: Chatbot Continues Interview
 
-The AI asks the next question until the fixed number of questions is completed.
+Chatbot asks the next question until the fixed number of questions is completed.
 
 #### Step 5: Final Feedback
 
-After all questions are answered, the AI provides final interview feedback.
+After all questions are answered, the Chatbot provides final interview feedback.
 
 
 ## Final Feedback Format
