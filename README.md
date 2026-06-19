@@ -9,34 +9,31 @@ The app reads two PDF files:
 
 Once both documents are uploaded, the AI interviewer starts automatically, asks a fixed number of questions, listens to the candidate's spoken answers, and gives final interview feedback at the end.
 
-
 ## How to run
 
-### 1. Open the project folder
+#### 1. Open the project folder
 
 ```bash
 cd ai-interview-agent
 ```
 
-### 2. Create a virtual environment
+#### 2. Create and activate virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-### 3. Activate the virtual environment
-
 ```bash
 source venv/bin/activate
 ```
 
-### 4. Install dependencies
+#### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Environment variables
+#### 4. Environment variables
 
 Create a `.env` file in the root folder.
 
@@ -44,7 +41,7 @@ Create a `.env` file in the root folder.
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-### 6. To run the app
+#### 5. To run the app
 
 ```bash
 python app.py
@@ -58,7 +55,7 @@ http://127.0.0.1:7860
 
 ## How It Works
 
-### Step 1: Upload Documents
+#### Step 1: Upload Documents
 
 Upload both files:
 
@@ -67,23 +64,23 @@ Upload both files:
 
 Once both files are uploaded, the interview starts automatically.
 
-### Step 2: AI Asks Questions
+#### Step 2: AI Asks Questions
 
 The AI interviewer asks one question at a time.
 
 Questions are based mainly on the job description and supported by the candidate's resume.
 
-### Step 3: Candidate Answers by Voice
+#### Step 3: Candidate Answers by Voice
 
 The candidate records their answer using the microphone.
 
 The answer is converted into text using Whisper.
 
-### Step 4: AI Continues Interview
+#### Step 4: AI Continues Interview
 
 The AI asks the next question until the fixed number of questions is completed.
 
-### Step 5: Final Feedback
+#### Step 5: Final Feedback
 
 After all questions are answered, the AI provides final interview feedback.
 
