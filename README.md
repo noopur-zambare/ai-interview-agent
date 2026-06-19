@@ -9,6 +9,9 @@ The app reads two PDF files:
 
 Once both documents are uploaded, the AI interviewer starts automatically, asks a fixed number of questions, listens to the candidate's spoken answers, and gives final interview feedback at the end.
 
+## Interview Flow
+
+
 ## How to run
 
 #### 1. Open the project folder
@@ -85,24 +88,6 @@ The AI asks the next question until the fixed number of questions is completed.
 After all questions are answered, the AI provides final interview feedback.
 
 
-### Interview Flow
-
-```text
-Upload Resume + Job Description
-        ↓
-AI asks Question 1
-        ↓
-Candidate answers by voice
-        ↓
-AI asks Question 2
-        ↓
-Candidate answers by voice
-        ↓
-AI continues until fixed question limit
-        ↓
-Final Interview Feedback
-```
-
 ## Final Feedback Format
 
 At the end of the interview, the application generates a structured final interview feedback report. This report highlights the candidate’s key strengths, identifies the main areas where the candidate can improve, and provides a suggested practice plan to help them prepare better for future interviews. The feedback is designed to be concise, actionable, and easy to understand, so the candidate can clearly see what went well and what needs more work.
@@ -122,7 +107,6 @@ ai-interview-agent/
 ├── requirements.txt
 └── README.md
 ```
-
 
 ## Tech Stack
 * Gradio
