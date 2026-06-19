@@ -9,40 +9,8 @@ The app reads two PDF files:
 
 Once both documents are uploaded, the AI interviewer starts automatically, asks a fixed number of questions, listens to the candidate's spoken answers, and gives final interview feedback at the end.
 
----
 
-## Final Feedback Format
-
-At the end of the interview, the application generates a structured final interview feedback report. This report highlights the candidate’s key strengths, identifies the main areas where the candidate can improve, and provides a suggested practice plan to help them prepare better for future interviews. The feedback is designed to be concise, actionable, and easy to understand, so the candidate can clearly see what went well and what needs more work.
-
----
-
-## Project Structure
-
-```text
-ai-interview-agent/
-│
-├── app.py
-├── styles.css
-├── interview_engine.py
-├── stt.py
-├── tts.py
-├── .env
-├── requirements.txt
-└── README.md
-```
-
----
-
-## Tech Stack
-* Gradio
-* OpenAI API
-* Whisper
-* gTTS
-
----
-
-## Installation
+## How to run
 
 ### 1. Open the project folder
 
@@ -68,9 +36,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
----
-
-## Environment Variables
+### 5. Environment variables
 
 Create a `.env` file in the root folder.
 
@@ -78,11 +44,7 @@ Create a `.env` file in the root folder.
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
----
-
-## How to Run
-
-Run the app using:
+### 6. To run the app
 
 ```bash
 python app.py
@@ -93,10 +55,6 @@ The app will start locally, usually at:
 ```text
 http://127.0.0.1:7860
 ```
-
-Open this URL in your browser.
-
----
 
 ## How It Works
 
@@ -129,31 +87,8 @@ The AI asks the next question until the fixed number of questions is completed.
 
 After all questions are answered, the AI provides final interview feedback.
 
----
 
-## Number of Questions
-
-The number of interview questions is fixed inside `app.py`.
-
-Example:
-
-```python
-agent = InterviewAgent(resume_text, jd_text, max_questions=5)
-```
-
-To change the number of questions, update `max_questions`.
-
-Examples:
-
-```python
-max_questions=3
-max_questions=7
-max_questions=10
-```
-
----
-
-## Interview Flow
+### Interview Flow
 
 ```text
 Upload Resume + Job Description
@@ -171,5 +106,29 @@ AI continues until fixed question limit
 Final Interview Feedback
 ```
 
+## Final Feedback Format
+
+At the end of the interview, the application generates a structured final interview feedback report. This report highlights the candidate’s key strengths, identifies the main areas where the candidate can improve, and provides a suggested practice plan to help them prepare better for future interviews. The feedback is designed to be concise, actionable, and easy to understand, so the candidate can clearly see what went well and what needs more work.
 
 
+## Project Structure
+
+```text
+ai-interview-agent/
+│
+├── app.py
+├── styles.css
+├── interview_engine.py
+├── stt.py
+├── tts.py
+├── .env
+├── requirements.txt
+└── README.md
+```
+
+
+## Tech Stack
+* Gradio
+* OpenAI API
+* Whisper
+* gTTS
