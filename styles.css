@@ -1,9 +1,14 @@
-
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
 
 #main-container {
     max-width: 900px;
     margin: auto;
     padding: 32px 16px;
+}
+
+.gradio-container,
+.gradio-container * {
+    font-family: "Manrope", sans-serif !important;
 }
 
 .app-header {
@@ -12,17 +17,22 @@
 
 .app-header h1 {
     font-size: 30px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
     margin-bottom: 6px;
 }
 
 .app-header p {
     font-size: 14px;
     opacity: 0.75;
+    font-weight: 400;
 }
 
-/* Upload section */
+.section-label h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
 
 .upload-row {
     margin-bottom: 18px;
@@ -30,18 +40,26 @@
 
 .upload-button button {
     width: 100%;
-    min-height: 44px;
+    min-height: 42px;
     border-radius: 10px;
-    font-weight: 500;
+    font-weight: 600;
+}
+
+.drop-zone {
+    margin-top: 8px;
+}
+
+.drop-zone .file-upload {
+    min-height: 72px;
+    border-radius: 10px;
 }
 
 .upload-status {
     font-size: 12px;
     opacity: 0.7;
     margin-top: 6px;
+    font-weight: 400;
 }
-
-/* Chat */
 
 #chatbot {
     min-height: 380px;
@@ -49,22 +67,17 @@
     overflow: hidden;
 }
 
-/* Audio */
-
 .audio-row {
     margin-top: 18px;
 }
-
-/* Footer */
 
 .footer-note {
     text-align: center;
     font-size: 12px;
     opacity: 0.65;
     margin-top: 14px;
+    font-weight: 400;
 }
-
-/* Mobile */
 
 @media screen and (max-width: 768px) {
     #main-container {

@@ -7,9 +7,6 @@ from tts import speak
 from interview_engine import InterviewAgent
 
 
-# -----------------------
-# LOAD CSS
-# -----------------------
 CSS_PATH = Path(__file__).with_name("styles.css")
 
 if CSS_PATH.exists():
@@ -18,15 +15,9 @@ else:
     custom_css = ""
 
 
-# -----------------------
-# GLOBAL STATE
-# -----------------------
 agent = None
 
 
-# -----------------------
-# GET FILE PATH SAFELY
-# -----------------------
 def get_file_path(file):
     if file is None:
         return None
@@ -40,9 +31,6 @@ def get_file_path(file):
     return None
 
 
-# -----------------------
-# READ PDF
-# -----------------------
 def read_file(file_path):
     reader = PdfReader(file_path)
     text = ""
@@ -55,14 +43,13 @@ def read_file(file_path):
     return text.strip()
 
 
-# -----------------------
-# UPLOAD HANDLERS
-# -----------------------
 def handle_resume_upload(file):
     if file is None:
         return None, "No resume uploaded"
 
-    filename = Path(get_file_path(file)).name
+    file_path = get_file_path(file)
+    filename = Path(file_path).name
+
     return file, f"Resume uploaded: {filename}"
 
 
@@ -70,13 +57,12 @@ def handle_jd_upload(file):
     if file is None:
         return None, "No job description uploaded"
 
-    filename = Path(get_file_path(file)).name
+    file_path = get_file_path(file)
+    filename = Path(file_path).name
+
     return file, f"Job description uploaded: {filename}"
 
 
-# -----------------------
-# START INTERVIEW
-# -----------------------
 def start(resume_file, jd_file):
     global agent
 
@@ -114,7 +100,11 @@ def start(resume_file, jd_file):
             ]
             return history, None
 
-        agent = InterviewAgent(resume_text, jd_text, max_questions=5)
+        agent = InterviewAgent(
+            resume_text,
+            jd_text,
+            max_questions=5
+        )
 
         question = agent.ask()
         audio_file = speak(question)
@@ -138,9 +128,6 @@ def start(resume_file, jd_file):
         return history, None
 
 
-# -----------------------
-# AUTO START AFTER UPLOAD
-# -----------------------
 def try_auto_start(resume_file, jd_file):
     resume_path = get_file_path(resume_file)
     jd_path = get_file_path(jd_file)
@@ -151,9 +138,6 @@ def try_auto_start(resume_file, jd_file):
     return start(resume_file, jd_file)
 
 
-# -----------------------
-# INTERVIEW LOOP
-# -----------------------
 def interview(audio, history):
     global agent
 
@@ -161,7 +145,7 @@ def interview(audio, history):
         history = []
 
     if audio is None:
-        return history, None
+        return history, None, None
 
     if agent is None:
         history.append(
@@ -170,7 +154,7 @@ def interview(audio, history):
                 "content": "Please upload both PDFs first. The interview will start automatically."
             }
         )
-        return history, None
+        return history, None, None
 
     try:
         user_text = transcribe(audio)
@@ -182,9 +166,13 @@ def interview(audio, history):
                     "content": "I could not hear your answer clearly. Please try again."
                 }
             )
-            return history, None
+            return history, None, None
 
         reply = agent.ask(user_text)
+
+        if agent.is_finished():
+            reply = reply + "\n\nInterview complete."
+
         audio_file = speak(reply)
 
         history.append(
@@ -201,7 +189,7 @@ def interview(audio, history):
             }
         )
 
-        return history, audio_file
+        return history, audio_file, None
 
     except Exception as e:
         history.append(
@@ -210,13 +198,14 @@ def interview(audio, history):
                 "content": f"Error during interview: {str(e)}"
             }
         )
-        return history, None
+        return history, None, None
 
 
-# -----------------------
-# UI
-# -----------------------
-with gr.Blocks(css=custom_css) as demo:
+with gr.Blocks(
+    theme=gr.themes.Monochrome(),
+    css=custom_css
+) as demo:
+
     resume_state = gr.State(None)
     jd_state = gr.State(None)
 
@@ -232,12 +221,21 @@ with gr.Blocks(css=custom_css) as demo:
         )
 
         with gr.Row(elem_classes="upload-row"):
+
             with gr.Column(scale=1):
+                gr.Markdown("### Resume", elem_classes="section-label")
+
                 resume_button = gr.UploadButton(
                     "Upload Resume PDF",
                     file_types=[".pdf"],
                     file_count="single",
                     elem_classes="upload-button"
+                )
+
+                resume_drop = gr.File(
+                    label="Drag and drop resume PDF",
+                    file_types=[".pdf"],
+                    elem_classes="drop-zone"
                 )
 
                 resume_status = gr.Markdown(
@@ -246,11 +244,19 @@ with gr.Blocks(css=custom_css) as demo:
                 )
 
             with gr.Column(scale=1):
+                gr.Markdown("### Job Description", elem_classes="section-label")
+
                 jd_button = gr.UploadButton(
                     "Upload Job Description PDF",
                     file_types=[".pdf"],
                     file_count="single",
                     elem_classes="upload-button"
+                )
+
+                jd_drop = gr.File(
+                    label="Drag and drop job description PDF",
+                    file_types=[".pdf"],
+                    elem_classes="drop-zone"
                 )
 
                 jd_status = gr.Markdown(
@@ -264,6 +270,7 @@ with gr.Blocks(css=custom_css) as demo:
         )
 
         with gr.Row(elem_classes="audio-row"):
+
             audio_input = gr.Audio(
                 sources=["microphone"],
                 type="filepath",
@@ -291,6 +298,16 @@ with gr.Blocks(css=custom_css) as demo:
             outputs=[chatbot, audio_output]
         )
 
+        resume_drop.change(
+            fn=handle_resume_upload,
+            inputs=resume_drop,
+            outputs=[resume_state, resume_status]
+        ).then(
+            fn=try_auto_start,
+            inputs=[resume_state, jd_state],
+            outputs=[chatbot, audio_output]
+        )
+
         jd_button.upload(
             fn=handle_jd_upload,
             inputs=jd_button,
@@ -301,10 +318,20 @@ with gr.Blocks(css=custom_css) as demo:
             outputs=[chatbot, audio_output]
         )
 
-        audio_input.change(
+        jd_drop.change(
+            fn=handle_jd_upload,
+            inputs=jd_drop,
+            outputs=[jd_state, jd_status]
+        ).then(
+            fn=try_auto_start,
+            inputs=[resume_state, jd_state],
+            outputs=[chatbot, audio_output]
+        )
+
+        audio_input.stop_recording(
             fn=interview,
             inputs=[audio_input, chatbot],
-            outputs=[chatbot, audio_output]
+            outputs=[chatbot, audio_output, audio_input]
         )
 
 

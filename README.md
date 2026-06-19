@@ -13,26 +13,7 @@ Once both documents are uploaded, the AI interviewer starts automatically, asks 
 
 ## Final Feedback Format
 
-At the end of the interview, the app generates feedback in this format:
-
-```text
-Final Interview Feedback:
-
-Strengths:
-- Point 1
-- Point 2
-- Point 3
-
-Areas to Improve:
-- Point 1
-- Point 2
-- Point 3
-
-Suggested Practice Plan:
-- Point 1
-- Point 2
-- Point 3
-```
+At the end of the interview, the application generates a structured final interview feedback report. This report highlights the candidate’s key strengths, identifies the main areas where the candidate can improve, and provides a suggested practice plan to help them prepare better for future interviews. The feedback is designed to be concise, actionable, and easy to understand, so the candidate can clearly see what went well and what needs more work.
 
 ---
 
@@ -54,14 +35,10 @@ ai-interview-agent/
 ---
 
 ## Tech Stack
-
-* Python
 * Gradio
 * OpenAI API
 * Whisper
 * gTTS
-* pypdf
-* python-dotenv
 
 ---
 
@@ -81,16 +58,8 @@ python -m venv venv
 
 ### 3. Activate the virtual environment
 
-For macOS/Linux:
-
 ```bash
 source venv/bin/activate
-```
-
-For Windows:
-
-```bash
-venv\Scripts\activate
 ```
 
 ### 4. Install dependencies
@@ -107,22 +76,6 @@ Create a `.env` file in the root folder.
 
 ```env
 OPENAI_API_KEY=your_openai_api_key_here
-```
-
----
-
-## Requirements
-
-Your `requirements.txt` should include:
-
-```txt
-gradio
-openai
-python-dotenv
-pypdf
-gTTS
-openai-whisper
-torch
 ```
 
 ---
@@ -218,19 +171,5 @@ AI continues until fixed question limit
 Final Interview Feedback
 ```
 
----
-
-## Future Improvements
-
-* Add question difficulty levels
-* Add role-specific interview modes
-* Add timer per answer
-* Add option to select number of questions from the UI
-* Save interview transcript
-* Export final feedback as PDF
-* Add scoring system
-* Add support for DOCX resumes
-* Add better voice options
-* Add automatic interview restart button
 
 
