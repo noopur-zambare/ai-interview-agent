@@ -11,8 +11,11 @@ Once both documents are uploaded, the AI interviewer starts automatically, asks 
 
 ## Interview Flow
 <div style="text-align: center;">
-  <img width="550" height="310" alt="interview-flow"
-       src="https://github.com/user-attachments/assets/913b2748-bb99-4909-b775-88f95748572b" />
+  <img 
+    src="https://github.com/user-attachments/assets/913b2748-bb99-4909-b775-88f95748572b"
+    alt="interview-flow"
+    style="width: 60%; height: auto;"
+  />
 </div>
 
 ## How to run
